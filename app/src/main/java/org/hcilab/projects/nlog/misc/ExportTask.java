@@ -1,3 +1,4 @@
+/*
 package org.hcilab.projects.nlog.misc;
 
 import android.content.Context;
@@ -214,4 +215,4 @@ public class ExportTask extends AsyncTask<Void, Void, Void> {
 		exporting = false;
 	}
 
-}
+}*/
