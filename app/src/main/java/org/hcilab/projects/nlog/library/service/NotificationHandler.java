@@ -1,12 +1,13 @@
-package org.hcilab.projects.nlog.service;
+package org.hcilab.projects.nlog.library.service;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.preference.PreferenceManager;
-import org.hcilab.projects.nlog.misc.*;
+import org.hcilab.projects.nlog.library.misc.*;
 
 public class NotificationHandler {
 
@@ -21,7 +22,7 @@ public class NotificationHandler {
 	NotificationHandler(Context context) {
 		this.context = context;
 		sp = PreferenceManager.getDefaultSharedPreferences(context);
-		db = NotificationRoomDatabase.getDatabase(this.context);
+		db = NotificationRoomDatabase.getDatabase(context);
 		removedEntryDao = db.removedEntryDao();
 		postedEntryDao = db.postedEntryDao();
 	}
@@ -31,10 +32,15 @@ public class NotificationHandler {
 			if(Const.DEBUG) System.out.println("posted ongoing!");
 			return;
 		}
-		boolean text = sp.getBoolean(Const.PREF_TEXT, true);
+		boolean text = sp.getBoolean(Const.PREF_TEXT, false);
 		String lastActivity = sp.getString(Const.PREF_LAST_ACTIVITY, null);
-		NotificationObject no = new NotificationObject(context, sbn, text, -1, lastActivity);
-		postedEntryDao.insert(new PostedEntry(no.toString()));
+		final org.hcilab.projects.nlog.library.service.NotificationObject no = new org.hcilab.projects.nlog.library.service.NotificationObject(context, sbn, text, -1, lastActivity);
+		AsyncTask.execute(new Runnable() {
+			@Override
+			public void run() {
+				postedEntryDao.insert(new PostedEntry(no.toString()));
+			}
+		});
 		Intent local = new Intent();
 		local.setAction(BROADCAST);
 		LocalBroadcastManager.getInstance(context).sendBroadcast(local);
@@ -46,8 +52,13 @@ public class NotificationHandler {
 			return;
 		}
 		String lastActivity = sp.getString(Const.PREF_LAST_ACTIVITY, null);
-		NotificationObject no = new NotificationObject(context, sbn, false, reason, lastActivity);
-		removedEntryDao.insert(new RemovedEntry(no.toString()));
+		final org.hcilab.projects.nlog.library.service.NotificationObject no = new org.hcilab.projects.nlog.library.service.NotificationObject(context, sbn, false, reason, lastActivity);
+		AsyncTask.execute(new Runnable() {
+			@Override
+			public void run() {
+				removedEntryDao.insert(new RemovedEntry(no.toString()));
+			}
+		});
 		Intent local = new Intent();
 		local.setAction(BROADCAST);
 		LocalBroadcastManager.getInstance(context).sendBroadcast(local);

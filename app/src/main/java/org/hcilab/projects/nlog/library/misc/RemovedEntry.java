@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlog.misc;
+package org.hcilab.projects.nlog.library.misc;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -12,4 +12,9 @@ public class RemovedEntry {
     public String content;
 
     public RemovedEntry(String content) {this.content = content;}
+
+    @Override
+    public String toString() {
+        return _ID + "," + content;
+    }
 }

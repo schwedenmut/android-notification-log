@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlog.service;
+package org.hcilab.projects.nlog.library.service;
 
 import android.app.Notification;
 import android.content.Context;
@@ -9,10 +9,9 @@ import android.preference.PreferenceManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationCompat;
-
-import org.hcilab.projects.nlog.BuildConfig;
-import org.hcilab.projects.nlog.misc.Const;
-import org.hcilab.projects.nlog.misc.Util;
+import org.hcilab.projects.nlog.library.BuildConfig;
+import org.hcilab.projects.nlog.library.misc.Const;
+import org.hcilab.projects.nlog.library.misc.Util;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -157,10 +156,10 @@ class NotificationObject {
 			visibility = n.visibility;
 			color      = n.color;
 
-			listenerHints = NotificationListener.getListenerHints();
-			interruptionFilter = NotificationListener.getInterruptionFilter();
+			listenerHints = org.hcilab.projects.nlog.library.service.NotificationListener.getListenerHints();
+			interruptionFilter = org.hcilab.projects.nlog.library.service.NotificationListener.getInterruptionFilter();
 			NotificationListenerService.Ranking ranking = new NotificationListenerService.Ranking();
-			NotificationListenerService.RankingMap rankingMap = NotificationListener.getRanking();
+			NotificationListenerService.RankingMap rankingMap = org.hcilab.projects.nlog.library.service.NotificationListener.getRanking();
 			if(rankingMap != null && rankingMap.getRanking(key, ranking)) {
 				matchesInterruptionFilter = ranking.matchesInterruptionFilter();
 			}
@@ -217,7 +216,7 @@ class NotificationObject {
 			json.put("systemTime",     systemTime);
 			json.put("offset",         TimeZone.getDefault().getOffset(systemTime));
 			json.put("version",        BuildConfig.VERSION_CODE);
-			json.put("sdk",            android.os.Build.VERSION.SDK_INT);
+			json.put("sdk",            Build.VERSION.SDK_INT);
 
 			json.put("isOngoing",      isOngoing);
 			json.put("isClearable",    isClearable);

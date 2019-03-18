@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlog.service;
+package org.hcilab.projects.nlog.library.service;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -8,17 +8,11 @@ import android.content.Intent;
 import android.os.Build;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.location.ActivityRecognition;
-import com.google.android.gms.location.ActivityRecognitionClient;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
-import org.hcilab.projects.nlog.misc.Const;
-import org.hcilab.projects.nlog.misc.Util;
+import com.google.android.gms.location.*;
+import org.hcilab.projects.nlog.library.misc.Const;
+import org.hcilab.projects.nlog.library.misc.Util;
 
 public class NotificationListener extends NotificationListenerService {
 
@@ -126,7 +120,7 @@ public class NotificationListener extends NotificationListenerService {
 	}
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public static NotificationListenerService.RankingMap getRanking() {
+	public static RankingMap getRanking() {
 		if(instance != null) {
 			try {
 				return instance.getCurrentRanking();
@@ -175,7 +169,7 @@ public class NotificationListener extends NotificationListenerService {
 		if(Util.hasPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) && Util.hasPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
 			LocationRequest locationRequest = LocationRequest.create();
 			locationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
-			fusedLocationPendingIntent = PendingIntent.getService(this, 0, new Intent(this, FusedLocationIntentService.class), PendingIntent.FLAG_UPDATE_CURRENT);
+			fusedLocationPendingIntent = PendingIntent.getService(this, 0, new Intent(this, org.hcilab.projects.nlog.library.service.FusedLocationIntentService.class), PendingIntent.FLAG_UPDATE_CURRENT);
 			fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 			fusedLocationClient.requestLocationUpdates(locationRequest, fusedLocationPendingIntent);
 		}

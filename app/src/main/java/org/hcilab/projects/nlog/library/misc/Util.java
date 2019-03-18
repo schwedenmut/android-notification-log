@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlog.misc;
+package org.hcilab.projects.nlog.library.misc;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -14,8 +14,7 @@ import android.os.LocaleList;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
-
-import org.hcilab.projects.nlog.BuildConfig;
+import org.hcilab.projects.nlog.library.BuildConfig;
 
 import java.util.ArrayList;
 import java.util.List;

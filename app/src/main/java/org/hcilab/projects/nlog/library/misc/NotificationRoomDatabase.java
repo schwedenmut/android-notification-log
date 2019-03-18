@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlog.misc;
+package org.hcilab.projects.nlog.library.misc;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

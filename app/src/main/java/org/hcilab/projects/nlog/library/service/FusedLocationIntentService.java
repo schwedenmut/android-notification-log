@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlog.service;
+package org.hcilab.projects.nlog.library.service;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -6,10 +6,8 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-
 import com.google.android.gms.location.LocationResult;
-
-import org.hcilab.projects.nlog.misc.Const;
+import org.hcilab.projects.nlog.library.misc.Const;
 import org.json.JSONException;
 import org.json.JSONObject;
 
